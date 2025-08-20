@@ -40,7 +40,7 @@ const questions: Question[] = [
         id: 4,
         type: "textarea",
         question: "Déjanos tu sugerencia para mejorar",
-        required: false,
+        required: true,
     },
 ]
 
@@ -221,8 +221,8 @@ export default function SurveyPage() {
                     className="h-20 w-auto object-contain mx-auto mb-4"
                 />
                 <h1 className="text-2xl font-bold text-gray-900 mb-2">Encuesta de Satisfacción</h1>
-                <p className="text-orange-700 font-semibold">Tu opinión vale un vaso de chicha GRATIS 🍹</p>
-                <p className="text-sm text-gray-600 uppercase font-bold">(sin sorteos)</p>
+                <p className="text-orange-700 font-semibold">TU OPINIÓN NOS IMPORTA MUCHO</p>
+                <p className="text-sm text-gray-600 uppercase font-bold">Reclama tu vaso de chicha sin sorteos</p> 
             </div>
 
             {/* Progress Bar */}
