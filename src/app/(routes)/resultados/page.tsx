@@ -80,7 +80,14 @@ export default function DashboardPage() {
 
     const fetchEncuestas = async () => {
         try {
-            const response = await axios.get(`${Apis.URL_APOIMENT_BACKEND_DEV}/api/encuestas/getEncuestas`)
+            const response = await axios.get(
+                `${Apis.URL_APOIMENT_BACKEND_DEV}/api/encuestas/getEncuestas`,
+                {
+                    params: {
+                        local: Apis.PROYECTCURRENT, // 👈 aquí envías el valor
+                    },
+                }
+            );
             console.log("Encuestas:", response)
             setTotalRespuestas(response.data.data.encuestasLimit.length)
             setUltimaSugerencia(response.data.data.ultimaSugerencia)
@@ -194,7 +201,7 @@ export default function DashboardPage() {
                     {questions.map((question, index) => (
                         <Card key={index} className="bg-white/90 backdrop-blur-sm shadow-lg border-0">
                             <CardHeader className="pb-3">
-                                <CardTitle className="text-sm font-medium text-gray-600 leading-tight">{`Pregunta ${index +1}: ${question}`}</CardTitle>
+                                <CardTitle className="text-sm font-medium text-gray-600 leading-tight">{`Pregunta ${index + 1}: ${question}`}</CardTitle>
                             </CardHeader>
                             {
                                 index < 3 ?

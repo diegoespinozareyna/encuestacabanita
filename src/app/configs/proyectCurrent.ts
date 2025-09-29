@@ -11,7 +11,7 @@ export const Apis = {
     // URL_APOIMENT_BACKEND_DEV2: "http://localhost:5000",
     URL_APOIMENT_BACKEND_DEV2: "https://serverimages.inmobackend.site",
     //DATOS PROYECTO
-    PROYECTCURRENT: "reservatucancha",
+    PROYECTCURRENT: "Comas",
     PROYECTCURRENT_NAMEDOMINIO: "reservatucancha",
     PROYECTCURRENT_NAMEDOMINIO2: "reservatucancha",
     NAME_PROYECT: "Reserva tu Cancha",
