@@ -90,7 +90,7 @@ export default function DashboardPage() {
             );
             console.log("Encuestas:", response)
             setTotalRespuestas(response.data.data.encuestasLimit.length)
-            setUltimaSugerencia(response.data.data.ultimaSugerencia)
+            setUltimaSugerencia(response?.data?.data?.encuestasLimit?.[0]?.pregunta5)
             if (response.status === 201) {
                 // setSurveyResponses(response.data)
                 const surveyResponsesAll = response?.data?.data?.encuestasLimit?.map((item: any, index: any) => ({
@@ -100,7 +100,8 @@ export default function DashboardPage() {
                         1: parseInt(item.pregunta1, 10),
                         2: parseInt(item.pregunta2, 10),
                         3: parseInt(item.pregunta3, 10),
-                        4: item.pregunta4
+                        4: new Date(item?.createdAt) <= new Date("2025-09-29T23:59:59") ? item.pregunta4 : parseInt(item.pregunta4, 10),
+                        5: new Date(item?.createdAt) < new Date("2025-09-29T00:00:00") ? item.pregunta4 : item.pregunta5,
                     }
                 }));
                 setSurveyResponses(surveyResponsesAll)
@@ -120,6 +121,7 @@ export default function DashboardPage() {
         "¿Cómo te atendió nuestro equipo de atención (mozos/azafata)?",
         "¿Qué te pareció el sabor de nuestros platos?",
         "¿Qué opinas de la limpieza del local?",
+        "¿Qué tan satisfecho(a) está con la preparación y sabor del plato que recibió por nuestro cocinero de hoy?",
         "Déjanos tu sugerencia para mejorar",
     ]
 
@@ -176,7 +178,7 @@ export default function DashboardPage() {
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-4">
                             <img
-                                src="https://scontent.flim6-4.fna.fbcdn.net/v/t39.30808-6/437915017_7338559299591709_6772083892832624883_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHpocDXbz5pj7S8VEyQNL0GO8muJZm6PLY7ya4lmbo8trpLgra7j7IcdQqhQ5DR7oAfZVKvh3xe9kXQ1igLC4Pz&_nc_ohc=TqRgTvzin6UQ7kNvwHTRzAt&_nc_oc=AdkeC2B3bkH6bptAtkGzwAyfzHktYbTTvoNcd5_MCjFIl9SYmKkYDzIVR46RDeWzocY&_nc_zt=23&_nc_ht=scontent.flim6-4.fna&_nc_gid=woILf0FkAODMgvgvPDx2Zw&oh=00_AfWx_ryWVZmAfW9rVOCx0MyO0eljbAV61nQfIiulJagj4Q&oe=68ABCA60"
+                                src={"/imageslogocabañita.png"}
                                 alt="Logo de La Cabañita"
                                 className="h-12 w-auto object-contain"
                             />
@@ -204,7 +206,7 @@ export default function DashboardPage() {
                                 <CardTitle className="text-sm font-medium text-gray-600 leading-tight">{`Pregunta ${index + 1}: ${question}`}</CardTitle>
                             </CardHeader>
                             {
-                                index < 3 ?
+                                index < 4 ?
                                     <CardContent>
                                         <div className="flex items-center justify-between">
                                             <div className="text-4xl font-bold text-orange-600">{getAverageRating(index)}</div>
@@ -267,7 +269,7 @@ export default function DashboardPage() {
                                             <td className="p-4 text-sm text-gray-600">{formatTime(response.timestamp)}</td>
                                             {questions.map((_, questionIndex) => (
                                                 <td key={questionIndex} className="p-4">
-                                                    {questionIndex < 3 ? (
+                                                    {questionIndex < 4 ? (
                                                         <div className="space-y-1">
                                                             <StarDisplay rating={response.responses[questionIndex + 1] as number} />
                                                             <div className="text-xs text-gray-500">
@@ -277,7 +279,13 @@ export default function DashboardPage() {
                                                     ) : (
                                                         <div className="max-w-xs">
                                                             <p className="text-sm text-gray-700 leading-relaxed">
-                                                                {(response.responses[questionIndex + 1] as string) || "Sin comentarios"}
+                                                                {
+                                                                    new Date(response?.timestamp) <= new Date("2025-09-29T23:59:59") ?
+                                                                        ((response?.responses?.[4] as string) || "Sin comentarios")
+                                                                        :
+                                                                        ((response?.responses?.[questionIndex + 1] as string) || "Sin comentarios")
+                                                                }
+                                                                {/* {((response?.responses?.[questionIndex + 1] as string) || "Sin comentarios")} */}
                                                             </p>
                                                         </div>
                                                     )}

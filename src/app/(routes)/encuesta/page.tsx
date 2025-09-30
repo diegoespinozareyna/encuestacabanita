@@ -38,6 +38,12 @@ const questions: Question[] = [
     },
     {
         id: 4,
+        type: "stars",
+        question: "¿Qué tan satisfecho(a) está con la preparación y sabor del plato que recibió por nuestro cocinero de hoy?",
+        required: true,
+    },
+    {
+        id: 5,
         type: "textarea",
         question: "Déjanos tu sugerencia para mejorar",
         required: true,
@@ -144,6 +150,7 @@ export default function SurveyPage() {
             pregunta2: answers["2"],
             pregunta3: answers["3"],
             pregunta4: answers["4"],
+            pregunta5: answers["5"],
             local: "Comas",
         }
 
@@ -177,7 +184,7 @@ export default function SurveyPage() {
                 {/* Logo */}
                 <div className="flex justify-center pt-8 pb-4">
                     <img
-                        src="https://scontent.flim6-4.fna.fbcdn.net/v/t39.30808-6/437915017_7338559299591709_6772083892832624883_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHpocDXbz5pj7S8VEyQNL0GO8muJZm6PLY7ya4lmbo8trpLgra7j7IcdQqhQ5DR7oAfZVKvh3xe9kXQ1igLC4Pz&_nc_ohc=TqRgTvzin6UQ7kNvwHTRzAt&_nc_oc=AdkeC2B3bkH6bptAtkGzwAyfzHktYbTTvoNcd5_MCjFIl9SYmKkYDzIVR46RDeWzocY&_nc_zt=23&_nc_ht=scontent.flim6-4.fna&_nc_gid=woILf0FkAODMgvgvPDx2Zw&oh=00_AfWx_ryWVZmAfW9rVOCx0MyO0eljbAV61nQfIiulJagj4Q&oe=68ABCA60"
+                        src={"/imageslogocabañita.png"}
                         alt="Logo de La Cabañita"
                         className="h-20 w-auto object-contain"
                     />
@@ -216,13 +223,13 @@ export default function SurveyPage() {
             {/* Header con título */}
             <div className="text-center pt-8 pb-4">
                 <img
-                    src="https://scontent.flim6-4.fna.fbcdn.net/v/t39.30808-6/437915017_7338559299591709_6772083892832624883_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHpocDXbz5pj7S8VEyQNL0GO8muJZm6PLY7ya4lmbo8trpLgra7j7IcdQqhQ5DR7oAfZVKvh3xe9kXQ1igLC4Pz&_nc_ohc=TqRgTvzin6UQ7kNvwHTRzAt&_nc_oc=AdkeC2B3bkH6bptAtkGzwAyfzHktYbTTvoNcd5_MCjFIl9SYmKkYDzIVR46RDeWzocY&_nc_zt=23&_nc_ht=scontent.flim6-4.fna&_nc_gid=woILf0FkAODMgvgvPDx2Zw&oh=00_AfWx_ryWVZmAfW9rVOCx0MyO0eljbAV61nQfIiulJagj4Q&oe=68ABCA60"
+                    src={"/imageslogocabañita.png"}
                     alt="Logo de La Cabañita"
                     className="h-20 w-auto object-contain mx-auto mb-4"
                 />
                 <h1 className="text-2xl font-bold text-gray-900 mb-2">Encuesta de Satisfacción</h1>
                 <p className="text-orange-700 font-semibold">TU OPINIÓN NOS IMPORTA MUCHO</p>
-                <p className="text-sm text-gray-600 uppercase font-bold">Reclama tu vaso de chicha sin sorteos</p> 
+                <p className="text-sm text-gray-600 uppercase font-bold">Reclama tu vaso de chicha sin sorteos</p>
             </div>
 
             {/* Progress Bar */}
@@ -246,6 +253,10 @@ export default function SurveyPage() {
                             <h2 className="text-2xl font-bold text-gray-900 mb-4 leading-relaxed text-center">
                                 {currentQuestion.question}
                             </h2>
+                            {
+                                currentStep === 3 &&
+                                <h4 className="text-sm text-red-400 text-center -mt-4">{"(Tus respuestas nos ayudan a mejorar y también sirven para reconocer a nuestros cocineros con bonos de desempeño)"}</h4>
+                            }
                             {currentQuestion.required && <p className="text-sm text-red-500 text-center">* Campo obligatorio</p>}
                         </div>
 
